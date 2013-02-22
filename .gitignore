@@ -6,3 +6,6 @@
 *.ear
 /Framework Projeto Final/nbproject/private/
 /nbproject/private/
+/build/
+/testeInterface/nbproject/private/
+/testeInterface/build/

@@ -4,15 +4,14 @@
  */
 package View;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.*;
 import Controller.DaoUsuarioTXT;
 import Model.Usuario;
+import com.sun.istack.internal.logging.Logger;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import javax.swing.*;
 
 /**
  *
@@ -38,6 +37,8 @@ public class FormCadastroUsuario extends JFrame {
          * DEFININDO CONFIGURAÇÕES DO PAINEL
          */
         setLayout(new GridLayout(7, 1));
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width - 800) / 2, (screenSize.height - 600) / 2, 800, 600);
         setBackground(new Color(170, 170, 90));
 
         /**
@@ -110,6 +111,8 @@ public class FormCadastroUsuario extends JFrame {
         //bVoltar.addActionListener(e);
         bCadastrar.addActionListener(e);
 
+        setVisible(true);
+
     }
 
     public class event implements ActionListener {
@@ -120,12 +123,14 @@ public class FormCadastroUsuario extends JFrame {
             ArrayList array = new ArrayList();
             array.add(usuario);
 
-
             DaoUsuarioTXT.incluirUsuario(usuario);
 
             try {
                 ArrayList lido = DaoUsuarioTXT.DeserializarUsuario();
-                System.out.println(lido);
+                JOptionPane.showMessageDialog(null,
+                        "Usuário Cadastrado com sucesso!", "Cadastrado!",
+                        JOptionPane.INFORMATION_MESSAGE, null);
+
 
 
                 //    try{
@@ -139,7 +144,9 @@ public class FormCadastroUsuario extends JFrame {
                 //    
                 //
             } catch (Exception ex) {
-                Logger.getLogger(FormCadastroUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null,
+                        "Não foi possível cadastrar o Usuário!", "ATENÇÃO!!",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }

@@ -6,9 +6,9 @@ UnB - Universidade de Brasília - FGA - Faculdade do Gama
                                                 Trabalho Final
                                   DAS - Desenvolvimento Avançado de Software
                                   
-Nota: Este trabalho substitui a terceira avaliação da disciplinas de Desenvolvimento Avançado de
-Software (DAS). Ele deve ser realizado em trios e ser entregue pela página da disciplina no Moodle.
-Data limite para entrega: 28/02/2013, até às 23:55 horas, considerando o relógio do servidor do Moodle.
+                                                                                                Nota: Este trabalho substitui a terceira avaliação da disciplinas de Desenvolvimento Avançado de
+                                                                                                Software (DAS). Ele deve ser realizado em trios e ser entregue pela página da disciplina no Moodle.
+                                                                                                Data limite para entrega: 28/02/2013, até às 23:55 horas, considerando o relógio do servidor do Moodle.
 
   Enunciado
 O trabalho tem como objetivo a criação de um framework para autenticação e comunicação de

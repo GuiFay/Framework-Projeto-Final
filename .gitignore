@@ -4,3 +4,5 @@
 *.jar
 *.war
 *.ear
+/Framework Projeto Final/nbproject/private/
+/nbproject/private/

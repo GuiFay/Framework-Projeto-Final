@@ -16,7 +16,7 @@ Todos os serviços a serem executados pelo framework (autenticação e mensagens
 O trabalho deverá ser entregue na noite de quinta-feira anterior à aula de DAS, para que ele possa ser discutido com os alunos durante a aula de sexta.
 
 ####Critérios de avaliação:
- *Definição adequada de hot e frozen-spots.
- *Distribuição das funcionalidades pelos elementos pertencentes ao framework.
- *Aplicação do princípio de Hollywood.
- *Domínio do projeto durante a arguição do professor
+* Definição adequada de hot e frozen-spots.
+* Distribuição das funcionalidades pelos elementos pertencentes ao framework.
+* Aplicação do princípio de Hollywood.
+* Domínio do projeto durante a arguição do professor

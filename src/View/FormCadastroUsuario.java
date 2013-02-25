@@ -6,7 +6,6 @@ package View;
 
 import Controller.DaoUsuarioTXT;
 import Model.Usuario;
-import com.sun.istack.internal.logging.Logger;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -32,14 +31,26 @@ public class FormCadastroUsuario extends JFrame {
     JButton bVoltar;
 
     public FormCadastroUsuario() {
-
         /**
          * DEFININDO CONFIGURAÇÕES DO PAINEL
          */
+        //Título
+        super("Cadastro!!!");
+        //Layout
         setLayout(new GridLayout(7, 1));
+        //screenSize
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width - 800) / 2, (screenSize.height - 600) / 2, 800, 600);
+         //cor de fundo
         setBackground(new Color(170, 170, 90));
+    }
+
+    public void initialize() {
+        createGroup();
+        setVisible(true);
+    }
+
+    private void createGroup() {
 
         /**
          * INSTÂNCIANDO LABELS
@@ -49,69 +60,77 @@ public class FormCadastroUsuario extends JFrame {
         lSobrenome = new JLabel("Sobrenome:");
         lUsername = new JLabel("Username:");
         lSenha = new JLabel("Senha");
-
-
         /**
          * TÍTULO
          */
         JLabel Titulo = new JLabel();
-        Titulo.setLayout(new FlowLayout(FlowLayout.CENTER));
-        Titulo.add(lCadastro);
-        add(Titulo);
 
+        Titulo.setLayout(
+                new FlowLayout(FlowLayout.CENTER));
+        Titulo.add(lCadastro);
+
+        add(Titulo);
         /**
          * NOME
          */
         JPanel Nome = new JPanel();
-        Nome.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        Nome.setLayout(
+                new FlowLayout(FlowLayout.CENTER));
         Nome.add(lNome);
+
         Nome.add(tNome = new JTextField(30));
         add(Nome);
-
         /**
          * SOBRENOME
          */
         JPanel Sobrenome = new JPanel();
-        Sobrenome.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        Sobrenome.setLayout(
+                new FlowLayout(FlowLayout.CENTER));
         Sobrenome.add(lSobrenome);
+
         Sobrenome.add(tSobrenome = new JTextField(30));
         add(Sobrenome);
-
         /**
          * USERNAME
          */
         JPanel Username = new JPanel();
-        Username.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        Username.setLayout(
+                new FlowLayout(FlowLayout.CENTER));
         Username.add(lUsername);
+
         Username.add(tUsername = new JTextField(20));
         add(Username);
-
         /**
          * SENHA
          */
         JPanel Senha = new JPanel();
-        Senha.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        Senha.setLayout(
+                new FlowLayout(FlowLayout.CENTER));
         Senha.add(lSenha);
+
         Senha.add(pwSenha = new JPasswordField(6));
         add(Senha);
-
-
         /**
          * BOTÕES
          */
         JPanel Botoes = new JPanel();
-        Botoes.setLayout(new FlowLayout(FlowLayout.CENTER));
+
+        Botoes.setLayout(
+                new FlowLayout(FlowLayout.CENTER));
         //bVoltar = new JButton("Voltar");
         bCadastrar = new JButton("Gravar");
+
         Botoes.add(bCadastrar);
         //Botoes.add(bVoltar);
-        add(Botoes);
 
+        add(Botoes);
         event e = new event();
-        //bVoltar.addActionListener(e);
         bCadastrar.addActionListener(e);
 
-        setVisible(true);
 
     }
 
@@ -131,18 +150,6 @@ public class FormCadastroUsuario extends JFrame {
                         "Usuário Cadastrado com sucesso!", "Cadastrado!",
                         JOptionPane.INFORMATION_MESSAGE, null);
 
-
-
-                //    try{
-                //        StringBuffer b = new StringBuffer();
-                //        String cadastro = tNome.getText()+"|"+tSobrenome.getText()+"|"+tUsername.getText()+"|"+pwSenha.getText();
-                //        FileWriter stream = new FileWriter ("cadastro.txt");
-                //        BufferedWriter out = new BufferedWriter (stream);
-                //        out.write(cadastro);
-                //        out.close();
-                //        } catch (Exception ex){}
-                //    
-                //
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,
                         "Não foi possível cadastrar o Usuário!", "ATENÇÃO!!",

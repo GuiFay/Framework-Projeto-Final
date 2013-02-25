@@ -14,6 +14,7 @@ import javax.swing.*;
  * @author Guilherme
  */
 public class TelaInicial extends JFrame {
+
     private JLabel lMensagem;
     private JLabel lUsername;
     private JLabel lSenha;
@@ -23,14 +24,26 @@ public class TelaInicial extends JFrame {
     JButton bCadastrar;
 
     public TelaInicial() {
+
         /**
          * DEFININDO CONFIGURAÇÕES DO PAINEL
          */
-       
         setLayout(new GridLayout(4, 1));
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize(); 
-        setBounds((screenSize.width-550)/2, (screenSize.height-250)/2, 550, 250);        
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width - 550) / 2, (screenSize.height - 250) / 2, 550, 250);
         setBackground(new Color(170, 170, 90));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Framework DAS");
+
+
+    }
+
+    public void initialize() {
+        createGroup();
+        setVisible(true);
+    }
+
+    private void createGroup() {
 
 
         /**
@@ -39,15 +52,15 @@ public class TelaInicial extends JFrame {
         lMensagem = new JLabel("Bem Vindo!!!");
         lUsername = new JLabel("Username:");
         lSenha = new JLabel("Senha:");
-        
-         /**
+
+        /**
          * TÍTULO
          */
         JLabel Mensagem = new JLabel();
         Mensagem.setLayout(new FlowLayout(FlowLayout.CENTER));
         Mensagem.add(lMensagem);
         add(Mensagem);
-        
+
         /**
          * NOME
          */
@@ -56,8 +69,8 @@ public class TelaInicial extends JFrame {
         Username.add(lUsername);
         Username.add(tUsername = new JTextField(15));
         add(Username);
-        
-         /**
+
+        /**
          * SENHA
          */
         JPanel Senha = new JPanel();
@@ -71,33 +84,36 @@ public class TelaInicial extends JFrame {
          */
         JPanel Botoes = new JPanel();
         Botoes.setLayout(new FlowLayout(FlowLayout.CENTER));
-       
-        bEntrar = new JButton("Entrar",new ImageIcon("icons/arrow.png"));
+
+        bEntrar = new JButton("Entrar", new ImageIcon("icons/arrow.png"));
         Botoes.add(bEntrar);
-        
-        bCadastrar = new JButton("Novo Aqui?",new ImageIcon("icons/user--plus.png"));
+
+        bCadastrar = new JButton("Novo Aqui?", new ImageIcon("icons/user--plus.png"));
         Botoes.add(bCadastrar);
-     
+
         add(Botoes);
 
         event e = new event();
-        //bVoltar.addActionListener(e);
+        bEntrar.addActionListener(e);
         bCadastrar.addActionListener(e);
 
-        }
-    
+    }
+
     public class event implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-           
-          if(e.getSource()==bCadastrar){
-               new FormCadastroUsuario();
-          
-          }
-          
-        }
 
-            
+            if (e.getSource() == bCadastrar) {
+                FormCadastroUsuario cadastro = new FormCadastroUsuario();
+                cadastro.initialize();
+
+            }
+            if (e.getSource() == bEntrar) {
+                MulticastView view = new MulticastView();
+                view.initialize();
+            }
+
         }
+    }
 }

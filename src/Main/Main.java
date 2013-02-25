@@ -21,10 +21,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        TelaInicial gui = new TelaInicial();
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.setTitle("Framework DAS");
-        gui.setVisible(true);
+        TelaInicial telaInicial = new TelaInicial();
+        telaInicial.initialize();
     }
 }

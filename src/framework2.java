@@ -2,14 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main;
-
 /**
  *
  * @author Guilherme
  */
 public class framework2 {
-    
+  /*  
     public static final USUARIOJAEXISTENTE = 2;
     public static final USUARIOCADASTRADO = 1;
     
@@ -31,6 +29,6 @@ public class framework2 {
     }
     
     
-    
+*/    
     
 }

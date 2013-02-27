@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.swing.JOptionPane;
 
 public class DaoUsuarioTXT {
 
@@ -46,7 +46,7 @@ public class DaoUsuarioTXT {
     }
 
     public static void deletarUsuario(String login) {
-        ArrayList<Usuario> array;
+        ArrayList<Usuario> array = null;
         try {
             array = (ArrayList<Usuario>) DeserializarUsuario();
             for (Usuario u : array) {
@@ -57,6 +57,54 @@ public class DaoUsuarioTXT {
         } catch (Exception ex) {
             Logger.getLogger(DaoUsuarioTXT.class.getName()).log(Level.SEVERE, null, ex);
         }
+        SerializarUsuario(array);
+    }
+
+    public static void alterarUsuario(String login, Usuario user) {
+        ArrayList<Usuario> array = null;
+        try {
+            array = (ArrayList<Usuario>) DeserializarUsuario();
+            for (Usuario u : array) {
+                if (u.login.equals(login)) {
+                    array.remove(u);
+                }
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(DaoUsuarioTXT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        /*  try {
+         array = DeserializarUsuario();
+
+         } catch (Exception ex) {
+         array = new ArrayList();
+         }
+         */
+        array.add(user);
+        SerializarUsuario(array);
+
+    }
+
+    //MUDAR METODO DE LUGAR
+    public static int autenticarUsuarioTxT(String login, String senha) {
+        ArrayList<Usuario> array = null;
+        try {
+            array = (ArrayList<Usuario>) DeserializarUsuario();
+            for (Usuario u : array) {
+                if (u.login.equals(login) && u.senha.equals(senha)) {
+                    return 1;
+                }
+            }
+            JOptionPane.showMessageDialog(null,
+                    "Usuário Autenticado com sucesso!", "Autenticado!",
+                    JOptionPane.INFORMATION_MESSAGE, null);
+        } catch (Exception ex) {
+            Logger.getLogger(DaoUsuarioTXT.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,
+                    "Não foi possível Autenticar o Usuário!", "ATENÇÃO!!",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        return 0;
     }
 
     public static ArrayList DeserializarUsuario() throws Exception {

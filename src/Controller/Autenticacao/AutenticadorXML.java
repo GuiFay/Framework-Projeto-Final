@@ -5,34 +5,49 @@
 package Controller.Autenticacao;
 
 import Model.Usuario;
+import java.util.ArrayList;
 
 /**
  *
  * @author Guilherme
  */
-class AutenticadorXML implements Autenticacao {
+public class AutenticadorXML extends Autenticacao {
 
-    public AutenticadorXML() {
+    @Override
+    protected ArrayList deserealizarArquivo() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void cadastrarUsuario(Usuario u) {
-        throw new UnsupportedOperationException("Not supported yet XML.");
+    protected boolean serealizarArquivo(ArrayList<Usuario> usuarios) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void RemoverUsuario(Usuario u) {
-        throw new UnsupportedOperationException("Not supported yet XML.");
+    protected Usuario autenticar(Usuario usuario, ArrayList usuarios) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public void AlterarUsuario(Usuario u) {
-        throw new UnsupportedOperationException("Not supported yet XML.");
+    protected boolean alterar(Usuario usuarioAntigo, Usuario usuarioNovo, ArrayList usuarios) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public int AutenticarUsuario(Usuario u) {
-        throw new UnsupportedOperationException("Not supported yet XML.");
+    protected boolean remover(Usuario usuario, ArrayList usuarios) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
+
+    @Override
+    protected boolean cadastrar(Usuario usuario, ArrayList usuarios) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    protected Usuario recuperar(Usuario usuario, ArrayList usuarios) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    
    
 }

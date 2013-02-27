@@ -4,23 +4,22 @@
  */
 package View;
 
+import Controller.DaoUsuarioTXT;
 import Core.AutenticacaoFacade;
 import Model.Usuario;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
  *
  * @author Guilherme
  */
-public class FormCadastroUsuario extends JFrame {
+public class FormAlterarUsuario extends JFrame {
 
-    private JLabel lCadastro;
+    private JLabel lAlteracao;
     private JLabel lNome;
     private JLabel lSobrenome;
     private JLabel lUsername;
@@ -29,29 +28,36 @@ public class FormCadastroUsuario extends JFrame {
     private JTextField tSobrenome;
     private JTextField tUsername;
     private JPasswordField pwSenha;
-    JButton bCadastrar;
+    JButton bAlteracao;
     JButton bVoltar;
-    
-    AutenticacaoFacade framework = AutenticacaoFacade.getInstance();
 
-    public FormCadastroUsuario() {
+    AutenticacaoFacade facade = AutenticacaoFacade.getInstance();            
+    
+    public FormAlterarUsuario() {
         /**
          * DEFININDO CONFIGURAÇÕES DO PAINEL
          */
         //Título
-        super("Cadastro!!!");
+        super("Alteração de Dados!!!");
         //Layout
         setLayout(new GridLayout(7, 1));
         //screenSize
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width - 800) / 2, (screenSize.height - 600) / 2, 800, 600);
-        //cor de fundo
+         //cor de fundo
         setBackground(new Color(170, 170, 90));
     }
 
     public void initialize() {
         createGroup();
         setVisible(true);
+        
+        Usuario userTemp = facade.getUsuarioLogado();
+        
+        tNome.setText(userTemp.nome);
+        tSobrenome.setText(userTemp.sobrenome);
+        tUsername.setText(userTemp.login);
+        
     }
 
     private void createGroup() {
@@ -59,58 +65,65 @@ public class FormCadastroUsuario extends JFrame {
         /**
          * INSTÂNCIANDO LABELS
          */
-        lCadastro = new JLabel("CADASTRO");
+        lAlteracao = new JLabel("Alteração de Dados");
         lNome = new JLabel("Nome:");
         lSobrenome = new JLabel("Sobrenome:");
         lUsername = new JLabel("Username:");
         lSenha = new JLabel("Senha");
+        /**
+         * TÍTULO
+         */
+        JLabel Titulo = new JLabel();
 
-        JLabel titulo = new JLabel();
-        titulo.setLayout( new FlowLayout(FlowLayout.CENTER));
-        titulo.add(lCadastro);
-
-        add(titulo);
-        JPanel nome = new JPanel();
-
-        nome.setLayout(
+        Titulo.setLayout(
                 new FlowLayout(FlowLayout.CENTER));
-        nome.add(lNome);
+        Titulo.add(lAlteracao);
 
-        nome.add(tNome = new JTextField(30));
-        add(nome);
+        add(Titulo);
+        /**
+         * NOME
+         */
+        JPanel Nome = new JPanel();
+
+        Nome.setLayout(
+                new FlowLayout(FlowLayout.CENTER));
+        Nome.add(lNome);
+
+        Nome.add(tNome = new JTextField(30));
+        add(Nome);
         /**
          * SOBRENOME
          */
-        JPanel sosbrenome = new JPanel();
+        JPanel Sobrenome = new JPanel();
 
-        sosbrenome.setLayout(
+        Sobrenome.setLayout(
                 new FlowLayout(FlowLayout.CENTER));
-        sosbrenome.add(lSobrenome);
+        Sobrenome.add(lSobrenome);
 
-        sosbrenome.add(tSobrenome = new JTextField(30));
-        add(sosbrenome);
+        Sobrenome.add(tSobrenome = new JTextField(30));
+        add(Sobrenome);
         /**
          * USERNAME
          */
-        JPanel username = new JPanel();
+        JPanel Username = new JPanel();
 
-        username.setLayout(
+        Username.setLayout(
                 new FlowLayout(FlowLayout.CENTER));
-        username.add(lUsername);
+        Username.add(lUsername);
 
-        username.add(tUsername = new JTextField(20));
-        add(username);
+        Username.add(tUsername = new JTextField(20));
+        add(Username);
         /**
          * SENHA
          */
-        JPanel senha = new JPanel();
+        JPanel Senha = new JPanel();
 
-        senha.setLayout(
+        Senha.setLayout(
                 new FlowLayout(FlowLayout.CENTER));
-        senha.add(lSenha);
+        Senha.add(lSenha);
 
-        senha.add(pwSenha = new JPasswordField(6));
-        add(senha);
+        Senha.add(pwSenha = new JPasswordField(6));
+        add(Senha);
         /**
          * BOTÕES
          */
@@ -119,33 +132,37 @@ public class FormCadastroUsuario extends JFrame {
         Botoes.setLayout(
                 new FlowLayout(FlowLayout.CENTER));
         //bVoltar = new JButton("Voltar");
-        bCadastrar = new JButton("Gravar");
+        bAlteracao = new JButton("Alterar");
 
-        Botoes.add(bCadastrar);
+        Botoes.add(bAlteracao);
         //Botoes.add(bVoltar);
 
         add(Botoes);
         event e = new event();
-        bCadastrar.addActionListener(e);
+        bAlteracao.addActionListener(e);
 
 
     }
 
+    // talvez seja melhor não dar opção de alterar o username
     public class event implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            
             Usuario usuario = new Usuario(tNome.getText(), tSobrenome.getText(), tUsername.getText(), pwSenha.getText());
             try {                
-                framework.cadastrarUsuario(usuario);                
+                facade.alterarUsuario(facade.getUsuarioLogado(), usuario);                
                 JOptionPane.showMessageDialog(null,
-                            "Usuário Cadastrado com sucesso!", "Cadastrado!",
+                            "Usuário alterado com sucesso!", "Alterado!",
                             JOptionPane.INFORMATION_MESSAGE, null);                
             } catch (Exception ex) {         
                 JOptionPane.showMessageDialog(null,
-                            "Não foi possível cadastrar o Usuário!", "ATENÇÃO!!",
+                            "Não foi possível alterar o Usuário!", "ATENÇÃO!!",
                             JOptionPane.ERROR_MESSAGE);
             }
+            
+           
         }
     }
 }

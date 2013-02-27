@@ -4,9 +4,13 @@
  */
 package View;
 
+import Core.AutenticacaoFacade;
+import Model.Usuario;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -22,6 +26,7 @@ public class TelaInicial extends JFrame {
     private JPasswordField pwSenha;
     JButton bEntrar;
     JButton bCadastrar;
+    AutenticacaoFacade framework = AutenticacaoFacade.getInstance();
 
     public TelaInicial() {
 
@@ -104,16 +109,30 @@ public class TelaInicial extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
 
+            Usuario u = new Usuario(null, null,
+                    tUsername.getText(), pwSenha.getText());
+
             if (e.getSource() == bCadastrar) {
                 FormCadastroUsuario cadastro = new FormCadastroUsuario();
                 cadastro.initialize();
 
             }
-            if (e.getSource() == bEntrar) {
-                MulticastView view = new MulticastView();
-                view.initialize();
-            }
 
+            if ((e.getSource() == bEntrar)) {
+
+                try {
+                    if (framework.autenticarUsuario(u)) {
+                        MulticastView view = new MulticastView();
+                        view.initialize();
+                    } else {
+                        JOptionPane.showMessageDialog(null,
+                                "Eeeta menino!", "VISH",
+                                JOptionPane.ERROR_MESSAGE, null);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
 }

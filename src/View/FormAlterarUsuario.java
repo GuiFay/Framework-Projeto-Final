@@ -4,7 +4,6 @@
  */
 package View;
 
-import Controller.DaoUsuarioTXT;
 import Core.AutenticacaoFacade;
 import Model.Usuario;
 

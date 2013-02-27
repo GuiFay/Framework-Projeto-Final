@@ -17,7 +17,7 @@ import javax.swing.*;
  *
  * @author Guilherme
  */
-public class TelaInicial extends JFrame {
+public class TelaInicial extends JFrame implements ActionListener {
 
     private JLabel lMensagem;
     private JLabel lUsername;
@@ -98,41 +98,37 @@ public class TelaInicial extends JFrame {
 
         add(Botoes);
 
-        event e = new event();
-        bEntrar.addActionListener(e);
-        bCadastrar.addActionListener(e);
+        bEntrar.addActionListener(this);
+        bCadastrar.addActionListener(this);
 
     }
 
-    public class event implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        Usuario u = new Usuario(null, null,
+                tUsername.getText(), pwSenha.getText());
 
-            Usuario u = new Usuario(null, null,
-                    tUsername.getText(), pwSenha.getText());
+        if (e.getSource() == bCadastrar) {
+            FormCadastroUsuario cadastro = new FormCadastroUsuario();
+            cadastro.initialize();
 
-            if (e.getSource() == bCadastrar) {
-                FormCadastroUsuario cadastro = new FormCadastroUsuario();
-                cadastro.initialize();
+        }
 
-            }
-
-            //Teste
-            if ((e.getSource() == bEntrar)) {
-
-                try {
-                    if (framework.autenticarUsuario(u)) {
-                        MulticastView view = new MulticastView();
-                        view.initialize();
-                    } else {
-                        JOptionPane.showMessageDialog(null,
-                                "Eeeta menino!", "VISH",
-                                JOptionPane.ERROR_MESSAGE, null);
-                    }
-                } catch (Exception ex) {
-                    Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
+        //Teste
+        if ((e.getSource() == bEntrar)) {
+            try {
+                if (framework.autenticarUsuario(u)) {
+                    MulticastView view = new MulticastView();
+                    this.dispose();
+                    view.initialize();
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                            "Eeeta menino!", "VISH",
+                            JOptionPane.ERROR_MESSAGE, null);
                 }
+            } catch (Exception ex) {
+                Logger.getLogger(TelaInicial.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

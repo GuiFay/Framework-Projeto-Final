@@ -21,8 +21,8 @@ import java.util.ArrayList;
 public class AutenticadorTXT extends Autenticacao {
 
     @Override
-    protected ArrayList deserealizarArquivo() throws Exception {
-        FileInputStream fis = new FileInputStream("Cadastro2.txt");
+    protected ArrayList deserealizarArquivo(String caminho) throws Exception {
+        FileInputStream fis = new FileInputStream(caminho);
         ObjectInputStream ois = new ObjectInputStream(fis);
         ArrayList usuarios = (ArrayList) ois.readObject();
         ois.close();
@@ -31,9 +31,9 @@ public class AutenticadorTXT extends Autenticacao {
     }
 
     @Override
-    protected boolean serealizarArquivo(ArrayList<Usuario> usuarios) throws Exception {
+    protected boolean serealizarArquivo(String caminho,ArrayList<Usuario> usuarios) throws Exception {
         FileOutputStream fos;
-        fos = new FileOutputStream("Cadastro2.txt");
+        fos = new FileOutputStream(caminho);
         ObjectOutputStream oos;
         oos = new ObjectOutputStream(fos);
         oos.writeObject(usuarios);

@@ -8,7 +8,7 @@ package Controller.Serviços;
  *
  * @author Guilherme
  */
-public class ServiçoChat implements Serviços{
+public class ServicoMsg extends Servicos{
 
     @Override
     public int pesquisarStatus() {
@@ -16,7 +16,7 @@ public class ServiçoChat implements Serviços{
     }
 
     @Override
-    public void SelecionarUsuário() {
+    public void SelecionarUsuario() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -29,5 +29,7 @@ public class ServiçoChat implements Serviços{
     public void enviarMensagem() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
+
+
 }

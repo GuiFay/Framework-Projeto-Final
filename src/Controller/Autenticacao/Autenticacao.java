@@ -16,6 +16,9 @@ public abstract class Autenticacao {
     public static final int  XML = 1;
     public static final int  TXT = 2;
     
+    public static final String  caminho_cadastro = "Cadastro2.txt";
+    public static final String  caminho_lista = "ListaOnline.txt";
+    
     Usuario usuarioLogado = null;
     
     //frozen
@@ -25,9 +28,9 @@ public abstract class Autenticacao {
         ArrayList<Usuario> usuarios = null;
         
         try {
-            usuarios = deserealizarArquivo();
+            usuarios = deserealizarArquivo(caminho_cadastro);
             cadastrar(u, usuarios);
-            serealizarArquivo(usuarios);
+            serealizarArquivo(caminho_cadastro,usuarios);
         } catch (Exception e){
             throw e;
         }
@@ -41,9 +44,9 @@ public abstract class Autenticacao {
         ArrayList<Usuario> usuarios = null;
         
         try {
-            usuarios = deserealizarArquivo();
+            usuarios = deserealizarArquivo(caminho_cadastro);
             remover(u, usuarios);
-            serealizarArquivo(usuarios);
+            serealizarArquivo(caminho_cadastro,usuarios);
         } catch (Exception e){
             throw e;
         }
@@ -57,9 +60,9 @@ public abstract class Autenticacao {
         ArrayList<Usuario> usuarios = null;
         
         try {
-            usuarios = deserealizarArquivo();
+            usuarios = deserealizarArquivo(caminho_cadastro);
             alterar(uAntigo, uNovo, usuarios);
-            serealizarArquivo(usuarios);
+            serealizarArquivo(caminho_cadastro,usuarios);
         } catch (Exception e){
             throw e;
         }
@@ -74,9 +77,9 @@ public abstract class Autenticacao {
         
         try {
             //HOsts SPOTS -- Beguin
-            usuarios = deserealizarArquivo();
+            usuarios = deserealizarArquivo(caminho_cadastro);
             retorno = recuperar(u, usuarios);
-            serealizarArquivo(usuarios);
+            serealizarArquivo(caminho_cadastro,usuarios);
             //HOsts SPOTS -- END
         } catch (Exception e){
             throw e;
@@ -89,15 +92,23 @@ public abstract class Autenticacao {
 
         Usuario retorno = null; 
         ArrayList<Usuario> usuarios = null;
+        ArrayList<Usuario> usuarios_online = null;
         
         try {
             //HOsts SPOTS -- Beguin
-            usuarios = deserealizarArquivo();
-            
+            usuarios = deserealizarArquivo(caminho_cadastro);
             retorno = autenticar(u, usuarios);
             usuarioLogado = retorno;
+            serealizarArquivo(caminho_cadastro,usuarios);
             
-            serealizarArquivo(usuarios);
+            ///////Isso deveria ser feito remotamente/////////
+            deserealizarArquivo(caminho_lista);
+            usuarios_online = new ArrayList<Usuario>();
+            retorno.setSenha("");
+            cadastrar(retorno, usuarios_online);
+            serealizarArquivo(caminho_lista, usuarios_online);
+            //////////////////////////////////////////////////
+            
             //HOsts SPOTS -- END
         } catch (Exception e){
             throw e;
@@ -110,8 +121,8 @@ public abstract class Autenticacao {
         return usuarioLogado;
     }
     //hot
-    protected abstract ArrayList deserealizarArquivo() throws Exception;
-    protected abstract boolean serealizarArquivo(ArrayList<Usuario> usuarios) throws Exception;
+    protected abstract ArrayList deserealizarArquivo(String caminho) throws Exception;
+    protected abstract boolean serealizarArquivo(String caminho,ArrayList<Usuario> usuarios) throws Exception;
     
     //hot
     protected abstract Usuario autenticar(Usuario usuario, ArrayList usuarios);

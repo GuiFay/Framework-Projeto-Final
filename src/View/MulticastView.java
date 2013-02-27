@@ -4,6 +4,7 @@ import ComMulticast.MulticastListener;
 import ComMulticast.MulticastSender;
 import ComMulticast.MulticastPeer;
 import Core.AutenticacaoFacade;
+import Core.ComunicacaoFacade;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -32,17 +33,20 @@ public class MulticastView extends JFrame {
     private JTextArea mensagens;
     private JTextField mensagem;
     private JButton enviar;
-    MulticastPeer peer;
-    MulticastListener listener;
-    MulticastSender sender;
-    private String nick;
-    AutenticacaoFacade facade = AutenticacaoFacade.getInstance();
 
+    private String nick;
+    
+    AutenticacaoFacade facade = AutenticacaoFacade.getInstance();
+    ComunicacaoFacade com = new ComunicacaoFacade();
+    
+    
     public MulticastView() {
         super("Chat");
         setSize(800, 600);
         setLocationRelativeTo(null);
-        peer = new MulticastPeer("229.50.50.50", 7010);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        com.initMultcast();
     }
 
     public void initialize() {
@@ -51,13 +55,11 @@ public class MulticastView extends JFrame {
                 "Bem vindo ao Chat " + facade.getUsuarioLogado().nome
                 + "!", "Bem Vindo!!",
                 JOptionPane.INFORMATION_MESSAGE, null);
-        // pack();
         
             nick = facade.getUsuarioLogado().login;
-            peer.joinChat();
-            sender = new MulticastSender(peer.getSocket(), peer.getGrupo());
-            listener = new MulticastListener(peer.getSocket(), mensagens);
-            listener.start();
+            
+            com.entrarChat(mensagens, facade.getUsuarioLogado().login);
+          
             mensagens.append("\nEntrei no chat...");
             ativarBt(true);
             mensagem.requestFocus();
@@ -141,27 +143,11 @@ public class MulticastView extends JFrame {
         }
     }
 
-//    class EntrarListener implements ActionListener {
-//
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            //nick = JOptionPane.showInputDialog("Digite o seu Nick");
-//            nick = facade.getUsuarioLogado().login;
-//            peer.joinChat();
-//            sender = new MulticastSender(peer.getSocket(), peer.getGrupo());
-//            listener = new MulticastListener(peer.getSocket(), mensagens);
-//            listener.start();
-//            mensagens.append("\nEntrei no chat...");
-//            ativarBt(true);
-//            mensagem.requestFocus();
-//        }
-//    }
-
     class SairListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            peer.leaveChat();
+            com.sairChat();
             mensagens.append("\nSai do chat...");
             setVisible(false);
              JOptionPane.showMessageDialog(null,
@@ -176,8 +162,8 @@ public class MulticastView extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (!mensagem.getText().equals("")) {
-                sender.sendMsg(mensagem.getText(), nick);
-                // mensagens.append("\nEu: " + mensagem.getText());
+                com.enviarMsg(mensagem.getText(), nick);
+
                 mensagem.setText("");
                 mensagem.requestFocus();
             }

@@ -14,12 +14,12 @@ import java.util.ArrayList;
 public class AutenticadorXML extends Autenticacao {
 
     @Override
-    protected ArrayList deserealizarArquivo() throws Exception {
+    protected ArrayList deserealizarArquivo(String caminho) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    protected boolean serealizarArquivo(ArrayList<Usuario> usuarios) throws Exception {
+    protected boolean serealizarArquivo(String caminho, ArrayList<Usuario> usuarios) throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -47,7 +47,5 @@ public class AutenticadorXML extends Autenticacao {
     protected Usuario recuperar(Usuario usuario, ArrayList usuarios) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    
    
 }

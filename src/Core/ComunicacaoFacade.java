@@ -17,7 +17,8 @@ public class ComunicacaoFacade {
     Servicos servicos;
     public static final String SEPARADOR_MSG = " >>> ";
     public static final String COMANDO_ENTRADA = "[COMANDO][TIPO_ENTRADA]";
-
+    public static final String COMANDO_SAIDA = "[COMANDO][TIPO_SAIDA]";
+    
     public ComunicacaoFacade() {
         servicos = new ServicoChat();
     }        

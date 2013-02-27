@@ -118,6 +118,7 @@ public class TelaInicial extends JFrame {
 
             }
 
+            //Teste
             if ((e.getSource() == bEntrar)) {
 
                 try {

@@ -5,7 +5,7 @@ import ComMulticast.MulticastSender;
 import ComMulticast.MulticastPeer;
 import Core.AutenticacaoFacade;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,7 +26,6 @@ public class MulticastView extends JFrame {
     private JLabel lMensagem;
     private static final long serialVersionUID = -1202136001945439361L;
     private JPanel painel;
-    private JButton entrar;
     private JButton sair;
     private JButton excluir;
     private JButton alterar;
@@ -53,6 +52,16 @@ public class MulticastView extends JFrame {
                 + "!", "Bem Vindo!!",
                 JOptionPane.INFORMATION_MESSAGE, null);
         // pack();
+        
+            nick = facade.getUsuarioLogado().login;
+            peer.joinChat();
+            sender = new MulticastSender(peer.getSocket(), peer.getGrupo());
+            listener = new MulticastListener(peer.getSocket(), mensagens);
+            listener.start();
+            mensagens.append("\nEntrei no chat...");
+            ativarBt(true);
+            mensagem.requestFocus();
+        
         setVisible(true);
 
     }
@@ -67,6 +76,11 @@ public class MulticastView extends JFrame {
         // Painel no page start
         JPanel pageStart = new JPanel();
         painel.add(pageStart, BorderLayout.PAGE_START);
+       
+        lMensagem = new JLabel("Logado Como:"  +  facade.getUsuarioLogado().nome);
+        lMensagem.setFont(new Font("Arial",Font.BOLD,26));
+        
+        pageStart.add(lMensagem);
         //bt. alterar
         alterar = new JButton("Alterar Cadastro");
         pageStart.add(alterar);
@@ -75,10 +89,6 @@ public class MulticastView extends JFrame {
         excluir = new JButton("Excluir Cadastro");
         pageStart.add(excluir);
         excluir.addActionListener(new ExcluirListener());
-        // Bt. entrar
-        entrar = new JButton("Entrar");
-        pageStart.add(entrar);
-        entrar.addActionListener(new EntrarListener());
         // Bt. Sair.
         sair = new JButton("Sair");
         pageStart.add(sair);
@@ -100,7 +110,6 @@ public class MulticastView extends JFrame {
     }
 
     private void ativarBt(boolean ativar) {
-        entrar.setEnabled(!ativar);
         sair.setEnabled(ativar);
         mensagem.setEnabled(ativar);
         enviar.setEnabled(ativar);
@@ -132,20 +141,21 @@ public class MulticastView extends JFrame {
         }
     }
 
-    class EntrarListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            nick = JOptionPane.showInputDialog("Digite o seu Nick");
-            peer.joinChat();
-            sender = new MulticastSender(peer.getSocket(), peer.getGrupo());
-            listener = new MulticastListener(peer.getSocket(), mensagens);
-            listener.start();
-            mensagens.append("\nEntrei no chat...");
-            ativarBt(true);
-            mensagem.requestFocus();
-        }
-    }
+//    class EntrarListener implements ActionListener {
+//
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            //nick = JOptionPane.showInputDialog("Digite o seu Nick");
+//            nick = facade.getUsuarioLogado().login;
+//            peer.joinChat();
+//            sender = new MulticastSender(peer.getSocket(), peer.getGrupo());
+//            listener = new MulticastListener(peer.getSocket(), mensagens);
+//            listener.start();
+//            mensagens.append("\nEntrei no chat...");
+//            ativarBt(true);
+//            mensagem.requestFocus();
+//        }
+//    }
 
     class SairListener implements ActionListener {
 
@@ -153,7 +163,11 @@ public class MulticastView extends JFrame {
         public void actionPerformed(ActionEvent e) {
             peer.leaveChat();
             mensagens.append("\nSai do chat...");
-            ativarBt(false);
+            setVisible(false);
+             JOptionPane.showMessageDialog(null,
+                "Usuário " + facade.getUsuarioLogado().nome
+                + "Deslogado", "LogOut",
+                JOptionPane.INFORMATION_MESSAGE, null);
         }
     }
 

@@ -120,7 +120,7 @@ public class TelaInicial extends JFrame implements ActionListener {
             try {
                 if (framework.autenticarUsuario(u)) {
                     MulticastView view = new MulticastView();
-                    this.dispose();
+                    //this.dispose();
                     view.initialize();
                 } else {
                     JOptionPane.showMessageDialog(null,

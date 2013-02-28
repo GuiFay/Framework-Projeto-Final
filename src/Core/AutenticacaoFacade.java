@@ -50,6 +50,11 @@ public class AutenticacaoFacade {
         return at.CadastrarUsuario(u);
     }
     
+    public boolean listarUsuarioComoLogado(Usuario u) throws Exception{
+        at = getAutenticacao();
+        return at.listarUsuarioComoLogado(u);
+    }
+    
     public boolean deletarUsuario(Usuario u) throws Exception{
         at = getAutenticacao();
         return at.RemoverUsuario(u);

@@ -140,7 +140,7 @@ public class FormCadastroUsuario extends JFrame {
                 framework.cadastrarUsuario(usuario);                
                 JOptionPane.showMessageDialog(null,
                             "Usuário Cadastrado com sucesso!", "Cadastrado!",
-                            JOptionPane.INFORMATION_MESSAGE, null);        
+                            JOptionPane.INFORMATION_MESSAGE, null);                
                 setVisible(false);
             } catch (Exception ex) {         
                 JOptionPane.showMessageDialog(null,

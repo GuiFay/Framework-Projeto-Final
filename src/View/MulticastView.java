@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -37,14 +38,14 @@ public class MulticastView extends JFrame {
     private String nick;
     
     AutenticacaoFacade facade = AutenticacaoFacade.getInstance();
-    ComunicacaoFacade com = new ComunicacaoFacade();
+    ComunicacaoFacade com = ComunicacaoFacade.getInstance();
     
     
     public MulticastView() {
         super("Chat");
         setSize(800, 600);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         com.initMultcast();
     }
@@ -59,7 +60,26 @@ public class MulticastView extends JFrame {
             nick = facade.getUsuarioLogado().login;
             
             com.entrarChat(mensagens, facade.getUsuarioLogado().login);
+        System.out.println("Numero de mensagens na fila " + com.getMensagensOffline(facade.getUsuarioLogado().login).size());
           
+        if(com.isMensagensOffline(facade.getUsuarioLogado().login)){
+            mensagens.append("\nVocê tem mensagens offline!!: \n");
+            ArrayList<Object> temp = com.getMensagensOffline(facade.getUsuarioLogado().login);
+            if(temp == null || temp.size() == 0)
+            {
+                
+            } else {
+                for(int i =0; i < temp.size(); i +=2 ){
+                    mensagens.append("\n"+ temp.get(i+1));
+                }
+                mensagens.append("\n");
+            }
+            com.eraseMesagensOffline(facade.getUsuarioLogado().login);
+        } else {
+            mensagens.append("\nVocê nao tem mensagens offline\n");
+        }
+         
+
             mensagens.append("\nEntrei no chat...");
             ativarBt(true);
             mensagem.requestFocus();

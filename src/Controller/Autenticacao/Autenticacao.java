@@ -20,7 +20,7 @@ public abstract class Autenticacao {
     public static final String  caminho_cadastro = "Cadastro2";
     public static final String  caminho_lista = "ListaOnline";
     
-    ComunicacaoFacade com = new ComunicacaoFacade();
+    //ComunicacaoFacade com = new ComunicacaoFacade();
     
     Usuario usuarioLogado = null;
     
@@ -41,6 +41,24 @@ public abstract class Autenticacao {
         return retorno;
         
     }
+    
+    public boolean listarUsuarioComoLogado(Usuario u) throws Exception{
+        
+        boolean retorno = true; 
+        ArrayList<Usuario> usuarios = null;
+        
+        try {
+            usuarios = deserealizarArquivo(caminho_lista);
+            cadastrar(u, usuarios);
+            serealizarArquivo(caminho_lista,usuarios);
+        } catch (Exception e){
+            throw e;
+        }
+        
+        return retorno;
+        
+    }
+    
     public boolean RemoverUsuario(Usuario u) throws Exception{
         
         boolean retorno = true; 
@@ -105,7 +123,7 @@ public abstract class Autenticacao {
             serealizarArquivo(caminho_cadastro,usuarios);
             
             ///////Isso deveria ser feito remotamente/////////
-            com.atualizarLista();
+//            com.atualizarLista();
            /*
             deserealizarArquivo(caminho_lista);
             usuarios_online = new ArrayList<Usuario>();

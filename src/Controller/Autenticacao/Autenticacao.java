@@ -4,6 +4,7 @@
  */
 package Controller.Autenticacao;
 
+import Core.ComunicacaoFacade;
 import Model.Usuario;
 import java.util.ArrayList;
 
@@ -16,8 +17,10 @@ public abstract class Autenticacao {
     public static final int  XML = 1;
     public static final int  TXT = 2;
     
-    public static final String  caminho_cadastro = "Cadastro2.txt";
-    public static final String  caminho_lista = "ListaOnline.txt";
+    public static final String  caminho_cadastro = "Cadastro2";
+    public static final String  caminho_lista = "ListaOnline";
+    
+    ComunicacaoFacade com = new ComunicacaoFacade();
     
     Usuario usuarioLogado = null;
     
@@ -102,11 +105,14 @@ public abstract class Autenticacao {
             serealizarArquivo(caminho_cadastro,usuarios);
             
             ///////Isso deveria ser feito remotamente/////////
+            com.atualizarLista();
+           /*
             deserealizarArquivo(caminho_lista);
             usuarios_online = new ArrayList<Usuario>();
             retorno.setSenha("");
             cadastrar(retorno, usuarios_online);
             serealizarArquivo(caminho_lista, usuarios_online);
+            */ 
             //////////////////////////////////////////////////
             
             //HOsts SPOTS -- END

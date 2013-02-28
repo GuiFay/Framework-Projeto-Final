@@ -46,5 +46,9 @@ public class ComunicacaoFacade {
     public void enviarMsg(String text, String nick) {
         servicos.enviarMensagem(text, nick);
     }
+
+    public void atualizarLista() {
+        servicos.enviarMensagem(SEPARADOR_MSG, SEPARADOR_MSG);
+    }
     
 }

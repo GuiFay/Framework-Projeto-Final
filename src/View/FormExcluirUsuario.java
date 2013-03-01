@@ -16,10 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
-/**
- *
- * @author Greg
- */
 public class FormExcluirUsuario extends JFrame {
 
     private JLabel lExcluir;

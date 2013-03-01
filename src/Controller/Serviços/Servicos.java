@@ -9,10 +9,6 @@ import ComMulticast.MulticastPeer;
 import ComMulticast.MulticastSender;
 import javax.swing.JTextArea;
 
-/**
- *
- * @author Guilherme
- */
 public abstract class Servicos {
     
     public static final String COMANDO = "[COMANDO][TIPO";

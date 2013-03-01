@@ -4,6 +4,8 @@
  */
 package View;
 
+import Controller.Autenticacao.AutenticadorTXT;
+import Controller.Autenticacao.AutenticadorXML;
 import Core.AutenticacaoFacade;
 import Model.Usuario;
 
@@ -14,10 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
-/**
- *
- * @author Guilherme
- */
 public class FormCadastroUsuario extends JFrame {
 
     private JLabel lCadastro;
@@ -31,7 +29,6 @@ public class FormCadastroUsuario extends JFrame {
     private JPasswordField pwSenha;
     JButton bCadastrar;
     JButton bVoltar;
-    
     AutenticacaoFacade framework = AutenticacaoFacade.getInstance();
 
     public FormCadastroUsuario() {
@@ -66,7 +63,7 @@ public class FormCadastroUsuario extends JFrame {
         lSenha = new JLabel("Senha");
 
         JLabel titulo = new JLabel();
-        titulo.setLayout( new FlowLayout(FlowLayout.CENTER));
+        titulo.setLayout(new FlowLayout(FlowLayout.CENTER));
         titulo.add(lCadastro);
 
         add(titulo);
@@ -132,20 +129,25 @@ public class FormCadastroUsuario extends JFrame {
     }
 
     public class event implements ActionListener {
+        private Class AutenticadorXML;
+        private Class AutenticadorTXT;
 
         @Override
         public void actionPerformed(ActionEvent e) {
             Usuario usuario = new Usuario(tNome.getText(), tSobrenome.getText(), tUsername.getText(), pwSenha.getText());
-            try {                
-                framework.cadastrarUsuario(usuario);                
+            try {
+                framework.cadastrarUsuario(usuario);
+                framework.setAutenticacao(AutenticadorXML.class);
+                framework.cadastrarUsuario(usuario);
+                framework.setAutenticacao(AutenticadorTXT.class);
                 JOptionPane.showMessageDialog(null,
-                            "Usuário Cadastrado com sucesso!", "Cadastrado!",
-                            JOptionPane.INFORMATION_MESSAGE, null);                
+                        "Usuário Cadastrado com sucesso!", "Cadastrado!",
+                        JOptionPane.INFORMATION_MESSAGE, null);
                 setVisible(false);
-            } catch (Exception ex) {         
+            } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,
-                            "Não foi possível cadastrar o Usuário!", "ATENÇÃO!!",
-                            JOptionPane.ERROR_MESSAGE);
+                        "Não foi possível cadastrar o Usuário!", "ATENÇÃO!!",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
     }

@@ -13,10 +13,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
-/**
- *
- * @author Guilherme
- */
 public class TelaInicial extends JFrame implements ActionListener {
 
     private JLabel lMensagem;

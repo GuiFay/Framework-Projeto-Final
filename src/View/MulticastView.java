@@ -22,9 +22,6 @@ import javax.swing.JOptionPane;
 
 public class MulticastView extends JFrame {
 
-    /**
-     *
-     */
     private JLabel lMensagem;
     private static final long serialVersionUID = -1202136001945439361L;
     private JPanel painel;

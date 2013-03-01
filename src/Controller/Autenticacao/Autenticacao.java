@@ -8,10 +8,6 @@ import Core.ComunicacaoFacade;
 import Model.Usuario;
 import java.util.ArrayList;
 
-/**
- *
- * @author Guilherme
- */
 public abstract class Autenticacao {
     
     public static final int  XML = 1;

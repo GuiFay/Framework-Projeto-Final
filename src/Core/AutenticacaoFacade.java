@@ -5,17 +5,6 @@ import Controller.Autenticacao.AutenticadorTXT;
 
 import Model.Usuario;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author Guilherme
- */
-
-
-
 public class AutenticacaoFacade {
 
     private Autenticacao at = null;

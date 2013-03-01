@@ -14,10 +14,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-/**
- *
- * @author Guilherme
- */
 public class AutenticadorTXT extends Autenticacao {
 
     @Override

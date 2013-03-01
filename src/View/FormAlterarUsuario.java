@@ -4,6 +4,8 @@
  */
 package View;
 
+import Controller.Autenticacao.AutenticadorTXT;
+import Controller.Autenticacao.AutenticadorXML;
 import Core.AutenticacaoFacade;
 import Model.Usuario;
 
@@ -12,10 +14,6 @@ import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 
-/**
- *
- * @author Guilherme
- */
 public class FormAlterarUsuario extends JFrame {
 
     private JLabel lAlteracao;
@@ -29,9 +27,8 @@ public class FormAlterarUsuario extends JFrame {
     private JPasswordField pwSenha;
     JButton bAlteracao;
     JButton bVoltar;
+    AutenticacaoFacade framework = AutenticacaoFacade.getInstance();
 
-    AutenticacaoFacade facade = AutenticacaoFacade.getInstance();            
-    
     public FormAlterarUsuario() {
         /**
          * DEFININDO CONFIGURAÇÕES DO PAINEL
@@ -43,20 +40,20 @@ public class FormAlterarUsuario extends JFrame {
         //screenSize
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width - 800) / 2, (screenSize.height - 600) / 2, 800, 600);
-         //cor de fundo
+        //cor de fundo
         setBackground(new Color(170, 170, 90));
     }
 
     public void initialize() {
         createGroup();
         setVisible(true);
-        
-        Usuario userTemp = facade.getUsuarioLogado();
-        
+
+        Usuario userTemp = framework.getUsuarioLogado();
+
         tNome.setText(userTemp.nome);
         tSobrenome.setText(userTemp.sobrenome);
         tUsername.setText(userTemp.login);
-        
+
     }
 
     private void createGroup() {
@@ -145,23 +142,28 @@ public class FormAlterarUsuario extends JFrame {
 
     // talvez seja melhor não dar opção de alterar o username
     public class event implements ActionListener {
+        private Class AutenticadorXML;
+        private Class AutenticadorTXT;
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            
+
             Usuario usuario = new Usuario(tNome.getText(), tSobrenome.getText(), tUsername.getText(), pwSenha.getText());
-            try {                
-                facade.alterarUsuario(facade.getUsuarioLogado(), usuario);                
+            try {
+                framework.alterarUsuario(framework.getUsuarioLogado(), usuario);
+                framework.setAutenticacao(AutenticadorXML.class);
+                framework.alterarUsuario(framework.getUsuarioLogado(), usuario);
+                framework.setAutenticacao(AutenticadorTXT.class);
                 JOptionPane.showMessageDialog(null,
-                            "Usuário alterado com sucesso!", "Alterado!",
-                            JOptionPane.INFORMATION_MESSAGE, null);                
-            } catch (Exception ex) {         
+                        "Usuário alterado com sucesso!", "Alterado!",
+                        JOptionPane.INFORMATION_MESSAGE, null);
+            } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,
-                            "Não foi possível alterar o Usuário!", "ATENÇÃO!!",
-                            JOptionPane.ERROR_MESSAGE);
+                        "Não foi possível alterar o Usuário!", "ATENÇÃO!!",
+                        JOptionPane.ERROR_MESSAGE);
             }
-            
-           
+
+
         }
     }
 }

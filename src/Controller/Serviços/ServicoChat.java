@@ -4,10 +4,6 @@
  */
 package Controller.Serviços;
 
-/**
- *
- * @author Guilherme
- */
 public class ServicoChat extends Servicos{
 
     @Override
